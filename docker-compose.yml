@@ -1,0 +1,9 @@
+version: '3.4' 
+
+services: 
+ word-processor-server: 
+    image: syncfusion/word-processor-server:latest 
+    environment: 
+      SYNCFUSION_LICENSE_KEY: Ngo9BigBOggjHTQxAR8/V1NCaF1cWWhBYVdpR2Nbe055flBEal5ZVBYiSV9jS3pTcUdrW35bcnZdRmNbWA==
+    ports:
+    - "6002:80"
