@@ -16,9 +16,6 @@ using Syncfusion.EJ2.SpellChecker;
 
 namespace EJ2DocumentEditorServer.Controllers
 {
-    [Route("api/[controller]")]
-    public class DocumentEditorController : Controller
-    {
         private readonly IHostingEnvironment _hostingEnvironment;
         string path;
         public DocumentEditorController(IHostingEnvironment hostingEnvironment)
@@ -31,10 +28,18 @@ namespace EJ2DocumentEditorServer.Controllers
         [HttpPost]
         [EnableCors("AllowAllOrigins")]
         [Route("Import")]
-        public string Import(IFormCollection data)
+        public IActionResult Import(IFormCollection data)
         {
+            if (data == null)
+            {
+                return BadRequest("Form data is null");
+            }
+
             if (data.Files.Count == 0)
-                return null;
+            {
+                return BadRequest("No files received from the upload");
+            }
+
             Stream stream = new MemoryStream();
             IFormFile file = data.Files[0];
             int index = file.FileName.LastIndexOf('.');
@@ -51,7 +56,7 @@ namespace EJ2DocumentEditorServer.Controllers
 
             string json = Newtonsoft.Json.JsonConvert.SerializeObject(document);
             document.Dispose();
-            return json;
+            return Ok(json);
         }
 
         //Converts Metafile to raster image.
