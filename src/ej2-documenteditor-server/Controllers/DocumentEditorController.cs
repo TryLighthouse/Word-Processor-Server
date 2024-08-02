@@ -19,9 +19,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Syncfusion.DocIO;
-using System;
-using System.IO;
-using EJ2DocumentEditor = Syncfusion.EJ2.DocumentEditor;
 using Syncfusion.DocIORenderer;
 using Syncfusion.Pdf;
 
