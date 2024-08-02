@@ -380,10 +380,7 @@ namespace EJ2DocumentEditorServer.Controllers
             stream.Dispose();
             return document;
         }
-        public class SaveParam
-        {
-            public string content { get; set; }
-        }
+       
         [AcceptVerbs("Post")]
         [HttpPost]
         [Route("ExportPdf")]
@@ -408,6 +405,12 @@ namespace EJ2DocumentEditorServer.Controllers
                 FileDownloadName = data.FileName
             };
         }
+        public class SaveParameter
+        {
+            public string Content { get; set; }
+            public string FileName { get; set; }
+        }
     }
+
 
 }
