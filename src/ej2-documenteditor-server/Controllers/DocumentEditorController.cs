@@ -380,6 +380,34 @@ namespace EJ2DocumentEditorServer.Controllers
             stream.Dispose();
             return document;
         }
+        public class SaveParam
+        {
+            public string content { get; set; }
+        }
+        [AcceptVerbs("Post")]
+        [HttpPost]
+        [Route("ExportPdf")]
+        public FileStreamResult ExportPdf([FromBody] SaveParameter data)
+        {
+            // Converts the sfdt to stream
+            Stream document = EJ2DocumentEditor.WordDocument.Save(data.Content, EJ2DocumentEditor.FormatType.Docx);
+            Syncfusion.DocIO.DLS.WordDocument doc = new Syncfusion.DocIO.DLS.WordDocument(document, Syncfusion.DocIO.FormatType.Docx);
+            //Instantiation of DocIORenderer for Word to PDF conversion 
+            DocIORenderer render = new DocIORenderer();
+            //Converts Word document into PDF document 
+            PdfDocument pdfDocument = render.ConvertToPDF(doc);
+            Stream stream = new MemoryStream();
+            
+            //Saves the PDF file
+            pdfDocument.Save(stream);
+            stream.Position = 0;
+            pdfDocument.Close();         
+            document.Close();
+            return new FileStreamResult(stream, "application/pdf")
+            {
+                FileDownloadName = data.FileName
+            };
+        }
     }
 
 }
