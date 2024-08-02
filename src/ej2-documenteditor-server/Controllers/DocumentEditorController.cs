@@ -13,6 +13,18 @@ using Syncfusion.EJ2.DocumentEditor;
 using WDocument = Syncfusion.DocIO.DLS.WordDocument;
 using WFormatType = Syncfusion.DocIO.FormatType;
 using Syncfusion.EJ2.SpellChecker;
+using PdfExport.Models;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Syncfusion.DocIO;
+using System;
+using System.IO;
+using EJ2DocumentEditor = Syncfusion.EJ2.DocumentEditor;
+using Syncfusion.DocIORenderer;
+using Syncfusion.Pdf;
+
 
 namespace EJ2DocumentEditorServer.Controllers
 {
@@ -410,52 +422,7 @@ namespace EJ2DocumentEditorServer.Controllers
             public string Content { get; set; }
             public string FileName { get; set; }
         }
-         internal static EJ2DocumentEditor.FormatType GetFormatType(string fileName)
-        {
-            int index = fileName.LastIndexOf('.');
-            string format = index > -1 && index < fileName.Length - 1 ? fileName.Substring(index + 1) : "";
-
-            if (string.IsNullOrEmpty(format))
-                throw new NotSupportedException("EJ2 Document editor does not support this file format.");
-            switch (format.ToLower())
-            {
-                case "dotx":
-                case "docx":
-                case "docm":
-                case "dotm":
-                    return EJ2DocumentEditor.FormatType.Docx;
-                case "dot":
-                case "doc":
-                    return EJ2DocumentEditor.FormatType.Doc;
-                case "rtf":
-                    return EJ2DocumentEditor.FormatType.Rtf;
-                case "txt":
-                    return EJ2DocumentEditor.FormatType.Txt;
-                case "xml":
-                    return EJ2DocumentEditor.FormatType.WordML;
-                default:
-                    throw new NotSupportedException("EJ2 Document editor does not support this file format.");
-            }
-        }
-
-        internal static Syncfusion.DocIO.FormatType GetDocIOFomatType(EJ2DocumentEditor.FormatType type)
-        {
-            switch (type)
-            {
-                case EJ2DocumentEditor.FormatType.Docx:
-                    return FormatType.Docx;
-                case EJ2DocumentEditor.FormatType.Doc:
-                    return FormatType.Doc;
-                case EJ2DocumentEditor.FormatType.Rtf:
-                    return FormatType.Rtf;
-                case EJ2DocumentEditor.FormatType.Txt:
-                    return FormatType.Txt;
-                case EJ2DocumentEditor.FormatType.WordML:
-                    return FormatType.WordML;
-                default:
-                    throw new NotSupportedException("DocIO does not support this file format.");
-            }
-        }
+        
     }
 
 
