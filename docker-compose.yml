@@ -4,6 +4,7 @@ services:
  word-processor-server: 
     image: syncfusion/word-processor-server:latest 
     environment: 
-      SYNCFUSION_LICENSE_KEY: Ngo9BigBOggjHTQxAR8/V1NCaF5cXmZCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdnWXhceXRWRGVcUUR0WUM=
+      SYNCFUSION_LICENSE_KEY: Ngo9BigBOggjHTQxAR8/V1JEaF5cXmRCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdmWXdcdnVQRmFcUkd3V0pWYEk=
+
     ports:
     - "6002:80"

@@ -26,7 +26,7 @@ namespace EJ2DocumentEditorServer
     public class Startup
     {
         internal static string path;
-        public Startup(IConfiguration configuration, IHostingEnvironment env)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
@@ -91,7 +91,7 @@ namespace EJ2DocumentEditorServer
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             string license_key = Configuration["SYNCFUSION_LICENSE_KEY"];
             if (license_key!=null && license_key!=string.Empty)

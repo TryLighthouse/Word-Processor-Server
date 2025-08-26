@@ -53,6 +53,11 @@
 	<PackageReference Include="System.Drawing.Common" Version="4.*" />	
 	<PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.9.2" />
   <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="4.*" />
+  <PackageReference Include="Syncfusion.DocIO.Net.Core" Version="30.2.7" />
+  <PackageReference Include="Syncfusion.DocIORenderer.Net.Core" Version="30.2.7" />
+  <PackageReference Include="Syncfusion.Pdf.Net.Core" Version="30.2.7" />
+  <PackageReference Include="Syncfusion.EJ2.AspNet.Core" Version="30.2.7" />
+  <PackageReference Include="Syncfusion.EJ2.DocumentEditor.AspNet.Core" Version="30.2.7" />
   </ItemGroup>
 
 </Project>
