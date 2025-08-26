@@ -2,26 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using System.Net.Http;
 using System.Text;
 using System.IO;
+
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Syncfusion.EJ2.DocumentEditor;
+
+using EJ2DocumentEditor = Syncfusion.EJ2.DocumentEditor; // <-- alias to disambiguate
+using Syncfusion.EJ2.SpellChecker;
+
 using WDocument = Syncfusion.DocIO.DLS.WordDocument;
 using WFormatType = Syncfusion.DocIO.FormatType;
-using Syncfusion.EJ2.SpellChecker;
-using PdfExport.Models;
-using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+
 using Syncfusion.DocIO;
 using Syncfusion.DocIORenderer;
 using Syncfusion.Pdf;
-
 
 namespace EJ2DocumentEditorServer.Controllers
 {
@@ -209,7 +207,7 @@ namespace EJ2DocumentEditorServer.Controllers
             Stream stream = System.IO.File.OpenRead("App_Data/GettingStarted.docx");
             stream.Position = 0;
 
-            WordDocument document = WordDocument.Load(stream, FormatType.Docx);
+            WordDocument document = WordDocument.Load(stream, EJ2DocumentEditor.FormatType.Docx);
             string json = Newtonsoft.Json.JsonConvert.SerializeObject(document);
             document.Dispose();
             return json;
@@ -237,7 +235,7 @@ namespace EJ2DocumentEditorServer.Controllers
                         stream.Position = 0;
                 }
             }
-            WordDocument document = WordDocument.Load(stream, FormatType.Docx);
+            WordDocument document = WordDocument.Load(stream, EJ2DocumentEditor.FormatType.Docx);
             string json = Newtonsoft.Json.JsonConvert.SerializeObject(document);
             document.Dispose();
             return json;
@@ -255,7 +253,7 @@ namespace EJ2DocumentEditorServer.Controllers
             }
             else { return null; }
         }
-        internal static FormatType GetFormatType(string format)
+        internal static EJ2DocumentEditor.FormatType GetFormatType(string format)
         {
             if (string.IsNullOrEmpty(format))
                 throw new NotSupportedException("EJ2 DocumentEditor does not support this file format.");
@@ -265,18 +263,18 @@ namespace EJ2DocumentEditorServer.Controllers
                 case ".docx":
                 case ".docm":
                 case ".dotm":
-                    return FormatType.Docx;
+                    return EJ2DocumentEditor.FormatType.Docx;
                 case ".dot":
                 case ".doc":
-                    return FormatType.Doc;
+                    return EJ2DocumentEditor.FormatType.Doc;
                 case ".rtf":
-                    return FormatType.Rtf;
+                    return EJ2DocumentEditor.FormatType.Rtf;
                 case ".txt":
-                    return FormatType.Txt;
+                    return EJ2DocumentEditor.FormatType.Txt;
                 case ".xml":
-                    return FormatType.WordML;
+                    return EJ2DocumentEditor.FormatType.WordML;
                 case ".html":
-                    return FormatType.Html;
+                    return EJ2DocumentEditor.FormatType.Html;
                 default:
                     throw new NotSupportedException("EJ2 DocumentEditor does not support this file format.");
             }
