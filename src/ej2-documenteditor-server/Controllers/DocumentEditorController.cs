@@ -14,9 +14,9 @@ using Microsoft.AspNetCore.Http;
 using EJ2DocumentEditor = Syncfusion.EJ2.DocumentEditor;
 using Syncfusion.EJ2.SpellChecker;
 using MetafileImageParsedEventArgs = Syncfusion.EJ2.DocumentEditor.MetafileImageParsedEventArgs;
-using EWordDocument = Syncfusion.EJ2.DocumentEditor.EWordDocument;
+using EWordDocument = Syncfusion.EJ2.DocumentEditor.WordDocument;
 
-using WDocument = Syncfusion.DocIO.DLS.EWordDocument;
+using WDocument = Syncfusion.DocIO.DLS.WordDocument;
 using WFormatType = Syncfusion.DocIO.FormatType;
 
 using Syncfusion.DocIO;
