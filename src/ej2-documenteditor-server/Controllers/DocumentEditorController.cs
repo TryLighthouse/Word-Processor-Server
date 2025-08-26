@@ -11,7 +11,8 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 
-using EJ2DocumentEditor = Syncfusion.EJ2.DocumentEditor; // <-- alias to disambiguate
+using MetafileImageParsedEventArgs = Syncfusion.EJ2.DocumentEditor.MetafileImageParsedEventArgs;
+using EJ2DocumentEditor = Syncfusion.EJ2.DocumentEditor;
 using Syncfusion.EJ2.SpellChecker;
 
 using WDocument = Syncfusion.DocIO.DLS.WordDocument;
