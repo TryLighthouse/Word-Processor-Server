@@ -11,11 +11,12 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 
-using MetafileImageParsedEventArgs = Syncfusion.EJ2.DocumentEditor.MetafileImageParsedEventArgs;
 using EJ2DocumentEditor = Syncfusion.EJ2.DocumentEditor;
 using Syncfusion.EJ2.SpellChecker;
+using MetafileImageParsedEventArgs = Syncfusion.EJ2.DocumentEditor.MetafileImageParsedEventArgs;
+using EWordDocument = Syncfusion.EJ2.DocumentEditor.EWordDocument;
 
-using WDocument = Syncfusion.DocIO.DLS.WordDocument;
+using WDocument = Syncfusion.DocIO.DLS.EWordDocument;
 using WFormatType = Syncfusion.DocIO.FormatType;
 
 using Syncfusion.DocIO;
@@ -52,10 +53,9 @@ namespace EJ2DocumentEditorServer.Controllers
             stream.Position = 0;
 
             //Hooks MetafileImageParsed event.
-            WordDocument.MetafileImageParsed += OnMetafileImageParsed;
-            WordDocument document = WordDocument.Load(stream, GetFormatType(type.ToLower()));
-            //Unhooks MetafileImageParsed event.
-            WordDocument.MetafileImageParsed -= OnMetafileImageParsed;
+            EWordDocument.MetafileImageParsed += OnMetafileImageParsed;
+            EWordDocument document = EWordDocument.Load(stream, GetFormatType(type.ToLower()));
+            EWordDocument.MetafileImageParsed -= OnMetafileImageParsed;
 
             string json = Newtonsoft.Json.JsonConvert.SerializeObject(document);
             document.Dispose();
@@ -161,10 +161,10 @@ namespace EJ2DocumentEditorServer.Controllers
                 try
                 {
                     //Hooks MetafileImageParsed event.
-                    WordDocument.MetafileImageParsed += OnMetafileImageParsed;
-                    WordDocument document = WordDocument.LoadString(param.content, GetFormatType(param.type.ToLower()));
+                    EWordDocument.MetafileImageParsed += OnMetafileImageParsed;
+                    EWordDocument document = EWordDocument.LoadString(param.content, GetFormatType(param.type.ToLower()));
                     //Unhooks MetafileImageParsed event.
-                    WordDocument.MetafileImageParsed -= OnMetafileImageParsed;
+                    EWordDocument.MetafileImageParsed -= OnMetafileImageParsed;
                     string json = Newtonsoft.Json.JsonConvert.SerializeObject(document);
                     document.Dispose();
                     return json;
@@ -195,7 +195,7 @@ namespace EJ2DocumentEditorServer.Controllers
         {
             if (param.passwordBase64 == "" && param.passwordBase64 == null)
                 return null;
-            return WordDocument.ComputeHash(param.passwordBase64, param.saltBase64, param.spinCount);
+            return EWordDocument.ComputeHash(param.passwordBase64, param.saltBase64, param.spinCount);
         }
 
 
@@ -208,7 +208,7 @@ namespace EJ2DocumentEditorServer.Controllers
             Stream stream = System.IO.File.OpenRead("App_Data/GettingStarted.docx");
             stream.Position = 0;
 
-            WordDocument document = WordDocument.Load(stream, EJ2DocumentEditor.FormatType.Docx);
+            EWordDocument document = EWordDocument.Load(stream, EJ2DocumentEditor.FormatType.Docx);
             string json = Newtonsoft.Json.JsonConvert.SerializeObject(document);
             document.Dispose();
             return json;
@@ -236,7 +236,7 @@ namespace EJ2DocumentEditorServer.Controllers
                         stream.Position = 0;
                 }
             }
-            WordDocument document = WordDocument.Load(stream, EJ2DocumentEditor.FormatType.Docx);
+            EWordDocument document = EWordDocument.Load(stream, EJ2DocumentEditor.FormatType.Docx);
             string json = Newtonsoft.Json.JsonConvert.SerializeObject(document);
             document.Dispose();
             return json;
@@ -395,8 +395,8 @@ namespace EJ2DocumentEditorServer.Controllers
         public FileStreamResult ExportPdf([FromBody] SaveParameter data)
         {
             // Converts the sfdt to stream
-            Stream document = EJ2DocumentEditor.WordDocument.Save(data.Content, EJ2DocumentEditor.FormatType.Docx);
-            Syncfusion.DocIO.DLS.WordDocument doc = new Syncfusion.DocIO.DLS.WordDocument(document, Syncfusion.DocIO.FormatType.Docx);
+            Stream document = EJ2DocumentEditor.EWordDocument.Save(data.Content, EJ2DocumentEditor.FormatType.Docx);
+            Syncfusion.DocIO.DLS.EWordDocument doc = new Syncfusion.DocIO.DLS.EWordDocument(document, Syncfusion.DocIO.FormatType.Docx);
             //Instantiation of DocIORenderer for Word to PDF conversion 
             DocIORenderer render = new DocIORenderer();
             //Converts Word document into PDF document 
