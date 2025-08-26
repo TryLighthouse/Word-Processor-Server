@@ -395,8 +395,8 @@ namespace EJ2DocumentEditorServer.Controllers
         public FileStreamResult ExportPdf([FromBody] SaveParameter data)
         {
             // Converts the sfdt to stream
-            Stream document = EJ2DocumentEditor.EWordDocument.Save(data.Content, EJ2DocumentEditor.FormatType.Docx);
-            Syncfusion.DocIO.DLS.EWordDocument doc = new Syncfusion.DocIO.DLS.EWordDocument(document, Syncfusion.DocIO.FormatType.Docx);
+            Stream document = EJ2DocumentEditor.WordDocument.Save(data.Content, EJ2DocumentEditor.FormatType.Docx);
+            Syncfusion.DocIO.DLS.WordDocument doc = new Syncfusion.DocIO.DLS.WordDocument(document, Syncfusion.DocIO.FormatType.Docx);
             //Instantiation of DocIORenderer for Word to PDF conversion 
             DocIORenderer render = new DocIORenderer();
             //Converts Word document into PDF document 
